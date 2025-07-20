@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Success</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #e0f7fa, #fff);
+            font-family: Arial;
+            text-align: center;
+            padding: 50px;
+        }
+        .box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            display: inline-block;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>🎉 Thank You!</h1>
+        <p>Your order has been placed successfully.</p>
+        <a href="{% url 'home' %}" class="btn btn-primary">Go Back to Store</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{% extends 'store/base.html' %}
+
+{% block title %}Your Cart{% endblock %}
+
+{% block content %}
+<h2>Your Shopping Cart</h2>
+<ul class="list-group mb-3">
+    {% for item in cart_items %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <div>
+                <strong>{{ item.product.name }}</strong><br>
+                <small>₹{{ item.product.price }} × {{ item.quantity }}</small>
+            </div>
+            <span class="badge bg-primary rounded-pill">₹{{ item.total_price }}</span>
+        </li>
+    {% empty %}
+        <li class="list-group-item">Your cart is empty.</li>
+    {% endfor %}
+</ul>
+<h4>Total: ₹{{ grand_total }}</h4>
+{% if cart_items %}
+<form method="POST" action="{% url 'checkout' %}">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-success mt-3">Place Order</button>
+</form>
+{% endif %}
+    </div>
+</div>
+
+{% endblock %}
