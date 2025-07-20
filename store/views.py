@@ -33,7 +33,7 @@ def logout_view(request):
 @login_required(login_url='login')
 def home(request):
     products = Product.objects.all()
-    return render(request, 'store/home.html', {'products': products})
+    return render(request, 'store/index.html', {'products': products})
 
 
 @login_required(login_url='login')
@@ -96,7 +96,7 @@ def register_view(request):
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            login(request, user)  # Auto login after registration (optional)
+            login(request, user)  # Auto login after registration 
             return redirect('login')
     else:
         form = UserCreationForm()
