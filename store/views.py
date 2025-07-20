@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-
+from django.db.models import Q
 
 
 def login_view(request):
@@ -32,9 +32,21 @@ def logout_view(request):
 
 @login_required(login_url='login')
 def home(request):
-    products = Product.objects.all()
-    return render(request, 'store/index.html', {'products': products})
+    category = request.GET.get('category')
+    search_query = request.GET.get('q')
 
+    products = Product.objects.all()
+
+    if category:
+       products = products.filter(category__name__iexact=category)
+
+
+    if search_query:
+        products = products.filter(
+            Q(name__icontains=search_query) | Q(description__icontains=search_query)
+        )
+
+    return render(request, 'store/index.html', {'products': products})
 
 @login_required(login_url='login')
 def product_detail(request, pk):
@@ -59,6 +71,13 @@ def cart_view(request):
         total += item_total
 
     return render(request, 'store/cart.html', {'cart_items': cart_items, 'total': total})
+
+@login_required(login_url='login')
+def add_to_cart(request, product_id):
+    cart = request.session.get('cart', {})
+    cart[str(product_id)] = cart.get(str(product_id), 0) + 1
+    request.session['cart'] = cart
+    return redirect('checkout')
 
 
 @login_required(login_url='login')
@@ -88,7 +107,7 @@ def checkout(request):
 
 @login_required(login_url='login')
 def order_success(request):
-    return render(request, 'store/success.html')
+    return render(request, 'store/order_success.html')
 
 
 def register_view(request):

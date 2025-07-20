@@ -1,15 +1,50 @@
-{% extends 'store/base.html' %}
-
+{% extends "store/base.html" %}
+{% load static %}
 {% block content %}
-  <h1>Welcome to the Store</h1>
-  <div class="product-list">
-    {% for product in products %}
-      <div class="product-card">
-        <h3>{{ product.name }}</h3>
-        <p>{{ product.description }}</p>
-        <p>₹{{ product.price }}</p>
-        <a href="{% url 'product_detail' product.pk %}">View</a>
-      </div>
-    {% endfor %}
-  </div>
+
+<div class="container mt-4">
+
+    <!-- Search Form -->
+    <form method="get" action="">
+        <input type="text" name="q" placeholder="Search products..." class="form-control mb-4" />
+    </form>
+
+    <!-- Category Filter -->
+    <h4>Filter by Category:</h4>
+    <div class="mb-4">
+        <a href="{% url 'home' %}" class="btn btn-outline-primary btn-sm me-2">All</a>
+        <a href="?category=Mobile" class="btn btn-outline-primary btn-sm me-2">Mobiles</a>
+        <a href="?category=Laptop" class="btn btn-outline-primary btn-sm me-2">Laptops</a>
+        <a href="?category=Watches" class="btn btn-outline-primary btn-sm me-2">Watches</a>
+        <a href="?category=Headphones" class="btn btn-outline-primary btn-sm me-2">Headphones</a>
+        <a href="?category=Books" class="btn btn-outline-primary btn-sm me-2">Books</a>
+        
+    </div>
+
+    <!-- Product Grid -->
+    <div class="row">
+        {% if products %}
+            {% for product in products %}
+                <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+    <div class="card shadow-sm" style="height: 360px;">
+        {% if product.image %}
+            <img src="{{ product.image.url }}" class="card-img-top" style="height: 200px; object-fit: cover;">
+        {% else %}
+            <img src="{% static 'store/images/default-product.jpg' %}" class="card-img-top" style="height: 200px; object-fit: cover;">
+        {% endif %}
+        <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text">₹{{ product.price }}</p>
+            <a href="{% url 'product_detail' product.pk %}" class="btn btn-sm btn-primary">View Details</a>
+        </div>
+    </div>
+</div>
+
+            {% endfor %}
+        {% else %}
+            <p>No products available.</p>
+        {% endif %}
+    </div>
+</div>
+
 {% endblock %}

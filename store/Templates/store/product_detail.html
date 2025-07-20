@@ -13,7 +13,7 @@
                 <h5 class="card-title">{{ product.name }}</h5>
                 <p class="card-text">Category: {{ product.category }}</p>
                 <p class="card-text"><strong>Price:</strong> ₹{{ product.price }}</p>
-                <form method="POST">
+                <form method="POST"  action="{% url 'add_to_cart' product.id %}">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-success">Add to Cart</button>
                 </form>

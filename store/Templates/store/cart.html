@@ -17,11 +17,12 @@
         <li class="list-group-item">Your cart is empty.</li>
     {% endfor %}
 </ul>
-<h4>Total: ₹{{ grand_total }}</h4>
+<h4>Total: ₹{{ total }}</h4>
 {% if cart_items %}
 <form method="POST" action="{% url 'checkout' %}">
     {% csrf_token %}
     <button type="submit" class="btn btn-success mt-3">Place Order</button>
+    <a href="{% url 'home' %}" class="btn btn-secondary mt-3 ms-2">Back</a>
 </form>
 {% endif %}
     </div>
