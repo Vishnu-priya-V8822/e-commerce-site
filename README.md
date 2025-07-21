@@ -1,11 +1,11 @@
-# E-Commerce Website
+ E-Commerce Website
 This is a simple website made using HTML,CSS,JavaScript and Django.
 
-## Features
+ Features
 -Responsive Design,Smooth Scroll
 
-# Skills Used
+Skills Used
 HTML,CSS,JavaScript,Bootstrap,Django
 
-## Author
+ Author
 Vishnupriya
