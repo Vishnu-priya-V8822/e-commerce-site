@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-+&vmpe7$ligzafanf1ztz(krc=x^3mtk$hn1#3h5me5cuy1an&
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'ecommerce.urls'
 
@@ -118,9 +119,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT=os.path.join(BASE_DIR,'staticfiles')
+STATICFILES_DIRS = [BASE_DIR / 'static']
+
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
-STATICFILES_DIRS = [BASE_DIR / 'static']
+
 LOGIN_URL = '/login/'     # ensures @login_required knows where to redirect
 LOGIN_REDIRECT_URL = '/'  # where to go after successful login
 LOGOUT_REDIRECT_URL = '/login/'
